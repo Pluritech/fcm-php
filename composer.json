@@ -2,7 +2,7 @@
     "name": "pluritech/fcm-php",
     "description": "This package has the opposite of allows send push notifications for one or more devices using the firebase cloud message. Will be used CURL for communication HTTP with Firebase API on pattern REST.",
     "keywords": ["fcm", "php", "pluritech"],
-    "homepage": "-----------",
+    "homepage": "https://github.com/Pluritech/fcm-php",
     "type": "library",
     "license": "MIT",
     "authors": [
