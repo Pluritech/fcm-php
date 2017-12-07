@@ -1,4 +1,4 @@
 <?php
-	echo "php test";
+	echo "php test v1.0.0";
 	die();
 ?>
