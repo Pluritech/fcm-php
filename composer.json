@@ -17,6 +17,6 @@
         "ext-curl": "*"
     },
     "autoload": {
-        "psr-4": {"Pluritech\\": "src/FCMPHP"}
+        "psr-4": {"FCMPHP\\": "src/FCMPHP"}
     }
 }
