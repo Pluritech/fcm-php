@@ -77,13 +77,14 @@ class FCMPHP
 
         if (!$config['fcm_server_key']) {
             throw new FCMPHPException('Required "fcm_server_key" key not supplied in config and could not find fallback environment variable "'. static::FCM_SERVER_KEY . '"');
+        } else{
+            $this->setFcmServerKey($config['fcm_server_key']);
         }
 
         $this->client = new FCMPHPClient(
             HttpClientsFactory::createHttpClient($config['http_client_handler'])
         );
     }
-
 
     /**
      * Returns the FacebookClient service.
@@ -180,10 +181,35 @@ class FCMPHP
      */
     public function request($method, $endpoint, array $params = [])
     {
-        return new FCMPHPRequest(
+        $request = new FCMPHPRequest(
              $method
             ,$endpoint
             ,$params
         );
+
+        $request->setHeaders([
+            'Authorization' => 'key=' . $this->getFcmServerKey()
+        ]);
+
+        return $request;
     }
+
+    /**
+     * Returns the server key.
+     *
+     * @return fcm_server_key
+     */
+    public function getFcmServerKey()
+    {
+        return $this->fcm_server_key;
+    }
+
+    /**
+     * Set fcm server key
+     */
+    public function setFcmServerKey($fcm_server_key)
+    {
+        $this->fcm_server_key = $fcm_server_key;
+    }
+
 }

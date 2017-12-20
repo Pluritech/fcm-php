@@ -31,30 +31,30 @@ namespace FCMPHP;
 class FCMNotification
 {
 
-	/**
-     * @const string priority on FCM to send message.
+    /**
+     * @const string priority on FCM to send message. Can be normal or high
      */
-	const DEFAULT_PRIORITY = 'normal';
+    const DEFAULT_PRIORITY = 'normal';
 
-	/**
+    /**
      * @const string click_action on FCM.
      */
-	const DEFAULT_CLICK_ACTION = 'FCM_PLUGIN_ACTIVITY';
+    const DEFAULT_CLICK_ACTION = 'FCM_PLUGIN_ACTIVITY';
 
-	/**
+    /**
      * @const string sound on receive push.
      */
-	const DEFAULT_SOUND = 'default';
+    const DEFAULT_SOUND = 'default';
 
-	/**
+    /**
      * @const string notification color.
      */
-	const DEFAULT_COLOR = 'default';
+    const DEFAULT_COLOR = '#dd0000';
 
-	/**
+    /**
      * @const string notification icon.
      */
-	const DEFAULT_ICON = 'fcm_push_icon';
+    const DEFAULT_ICON = 'fcm_push_icon';
 
     /**
      * @var 
@@ -116,27 +116,27 @@ class FCMNotification
      */
     public function __construct(array $config = [])
     {
-
-    	$config = array_merge([
+        $config = array_merge([
             'devices' => array(),
             'title' => null,
             'body' => null,
-            'click_action' => getenvt(static::DEFAULT_CLICK_ACTION),
-            'sound' => getenvt(static::DEFAULT_SOUND),
-            'color' => getenvt(static::DEFAULT_COLOR),
-            'icon' => getenvt(static::DEFAULT_ICON),
-            'priority' => getenvt(static::DEFAULT_PRIORITY),
+            'click_action' => static::DEFAULT_CLICK_ACTION,
+            'sound' => static::DEFAULT_SOUND,
+            'color' => static::DEFAULT_COLOR,
+            'icon' => static::DEFAULT_ICON,
+            'priority' => static::DEFAULT_PRIORITY,
+            'data' => (object) array(),
         ], $config);
 
-    	$this->setDevices($config['devices']);
-    	$this->setTitle($config['title']);
-    	$this->setBody($config['body']);
-    	$this->setClickAction($config['click_action']);
-    	$this->setSound($config['sound']);
-    	$this->setColor($config['color']);
-    	$this->setIcon($config['icon']);
-    	$this->setPriority($config['priority']);
-    	$this->setData($config['data']);
+        $this->setDevices($config['devices']);
+        $this->setTitle($config['title']);
+        $this->setBody($config['body']);
+        $this->setClickAction($config['click_action']);
+        $this->setSound($config['sound']);
+        $this->setColor($config['color']);
+        $this->setIcon($config['icon']);
+        $this->setPriority($config['priority']);
+        $this->setData($config['data']);
     }
 
     /**
@@ -148,32 +148,30 @@ class FCMNotification
      */
     public function formatBody(){
 
-        if (!$notification->getDevices())) {
-            throw new InvalidArgumentException('You need set one or more devices to send notification.');
+        if (!$this->getDevices()) {
+            throw new \InvalidArgumentException('You need set one or more devices to send notification.');
         }
 
-        if (!$notification->getTitle())) {
-            throw new InvalidArgumentException('You need set the notification title FCMNotification.title.');
+        if (!$this->getTitle()) {
+            throw new \InvalidArgumentException('You need set the notification title FCMNotification.title.');
         }
 
-        if (!$notification->getBody())) {
-            throw new InvalidArgumentException('You need set the notification body FCMNotification.body.');
+        if (!$this->getBody()) {
+            throw new \InvalidArgumentException('You need set the notification body FCMNotification.body.');
         }
 
         return array(
-        	"registration_ids" => array(
-        		$this->getDevices()
-        	)
-        	,"notification" => array(
-        		 "title" => $this->getTitle()
-        		,"body"  => $this->getBody()
-        		,"click_action" => $this->getBody()
-        		,"sound" => $this->getSound()
-        		,"color" => $this->getColor()
-        		,"icon" => $this->getIcon()
-        	)
-        	,"priority" => $this->getPriority()
-        	,"data" => $this->getData()
+            "registration_ids" => $this->getDevices()
+            ,"notification" => array(
+                 "title" => $this->getTitle()
+                ,"body"  => $this->getBody()
+                ,"click_action" => $this->getBody()
+                ,"sound" => $this->getSound()
+                ,"color" => $this->getColor()
+                ,"icon" => $this->getIcon()
+            )
+            ,"priority" => $this->getPriority()
+            ,"data" => $this->getData()
         );
     }
 
@@ -192,7 +190,7 @@ class FCMNotification
      */
     public function setDevices(array $devices = [])
     {
-        return $this->devices;
+        $this->devices = $devices;
     }
 
     /**
@@ -210,7 +208,7 @@ class FCMNotification
      */
     public function setTitle($title)
     {
-        return $this->title;
+        $this->title = $title;
     }
 
     /**
@@ -228,7 +226,7 @@ class FCMNotification
      */
     public function setBody($body)
     {
-        return $this->body;
+        $this->body = $body;
     }
 
     /**
@@ -246,7 +244,7 @@ class FCMNotification
      */
     public function setClickAction($click_action)
     {
-        return $this->click_action;
+        $this->click_action = $click_action;
     }
 
     /**
@@ -264,7 +262,7 @@ class FCMNotification
      */
     public function setSound($sound)
     {
-        return $this->sound;
+        $this->sound = $sound;
     }
 
     /**
@@ -282,7 +280,7 @@ class FCMNotification
      */
     public function setColor($color)
     {
-        return $this->color;
+        $this->color = $color;
     }
 
     /**
@@ -300,7 +298,7 @@ class FCMNotification
      */
     public function setIcon($icon)
     {
-        return $this->icon;
+        $this->icon = $icon;
     }
 
     /**
@@ -318,7 +316,7 @@ class FCMNotification
      */
     public function setPriority($priority)
     {
-        return $this->priority;
+        $this->priority = $priority;
     }
 
     /**
@@ -336,6 +334,6 @@ class FCMNotification
      */
     public function setData($data)
     {
-        return $this->data;
+        $this->data = $data;
     }
 }

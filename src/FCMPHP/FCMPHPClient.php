@@ -113,10 +113,10 @@ class FCMPHPClient
      */
     public function prepareRequestMessage(FCMPHPRequest $request)
     {
-        $url = $this->getBaseFCMUrl . $request->getUrl();
+        $url = $this->getBaseFCMUrl() . $request->getUrl();
 
-        //PAREI AQUI
         $requestBody = $request->getJsonEncodedBody();
+
         $request->setHeaders([
             'Content-Type' => 'application/json',
         ]);

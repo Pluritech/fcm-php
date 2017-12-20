@@ -24,7 +24,7 @@
 namespace FCMPHP\HttpClients;
 
 use FCMPHP\Http\FCMRawResponse;
-use FCMPHP\Exceptions\FCMPushException;
+use FCMPHP\Exceptions\FCMPHPException;
 
 /**
  * Class HttpCurlClient
@@ -70,7 +70,7 @@ class HttpCurlClient implements HttpClientInterface
         $this->sendRequest();
 
         if ($curlErrorCode = $this->httpCurl->errno()) {
-            throw new FCMPushException($this->httpCurl->error(), $curlErrorCode);
+            throw new FCMPHPException($this->httpCurl->error(), $curlErrorCode);
         }
 
         // Separate the raw headers from the raw body
