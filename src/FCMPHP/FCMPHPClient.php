@@ -50,7 +50,7 @@ class FCMPHPClient
     protected $httpClientHandler;
 
     /**
-     * @var int The number of calls that have been made to Graph.
+     * @var int The number of calls that have been made to FCM.
      */
     public static $requestCount = 0;
 

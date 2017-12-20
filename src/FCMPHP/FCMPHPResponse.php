@@ -23,7 +23,6 @@
  */
 namespace FCMPHP;
 
-//use FCMPHP\GraphNodes\GraphNodeFactory;
 use FCMPHP\Exceptions\FCMPHPResponseException;
 use FCMPHP\Exceptions\FCMPHPException;
 
@@ -60,7 +59,7 @@ class FCMPHPResponse
     protected $request;
 
     /**
-     * @var FacebookSDKException The exception thrown by this request.
+     * @var FCMPHPException The exception thrown by this request.
      */
     protected $thrownException;
 
@@ -85,31 +84,11 @@ class FCMPHPResponse
     /**
      * Return the original request that returned this response.
      *
-     * @return FacebookRequest
+     * @return FCMPHP
      */
     public function getRequest()
     {
         return $this->request;
-    }
-
-    /**
-     * Return the FacebookApp entity used for this response.
-     *
-     * @return FacebookApp
-     */
-    public function getApp()
-    {
-        return $this->request->getApp();
-    }
-
-    /**
-     * Return the access token that was used for this response.
-     *
-     * @return string|null
-     */
-    public function getAccessToken()
-    {
-        return $this->request->getAccessToken();
     }
 
     /**
@@ -197,6 +176,7 @@ class FCMPHPResponse
      */
     public function decodeBody()
     {
+
         $this->decodedBody = json_decode($this->body, true);
 
         if (!is_array($this->decodedBody)) {
@@ -209,154 +189,16 @@ class FCMPHPResponse
     }
 
     /**
-     * Instantiate a new GraphObject from response.
+     * Return if one or more message failure on send.
      *
-     * @param string|null $subclassName The GraphNode subclass to cast to.
-     *
-     * @return \Facebook\GraphNodes\GraphObject
-     *
-     * @throws FacebookSDKException
-     *
-     * @deprecated 5.0.0 getGraphObject() has been renamed to getGraphNode()
-     * @todo v6: Remove this method
+     * FCM will return failure on body with code 200
      */
-    public function getGraphObject($subclassName = null)
+    public function hasFailure()
     {
-        return $this->getGraphNode($subclassName);
-    }
-
-    /**
-     * Instantiate a new GraphNode from response.
-     *
-     * @param string|null $subclassName The GraphNode subclass to cast to.
-     *
-     * @return \Facebook\GraphNodes\GraphNode
-     *
-     * @throws FacebookSDKException
-     */
-    public function getGraphNode($subclassName = null)
-    {
-        $factory = new GraphNodeFactory($this);
-
-        return $factory->makeGraphNode($subclassName);
-    }
-
-    /**
-     * Convenience method for creating a GraphAlbum collection.
-     *
-     * @return \Facebook\GraphNodes\GraphAlbum
-     *
-     * @throws FacebookSDKException
-     */
-    public function getGraphAlbum()
-    {
-        $factory = new GraphNodeFactory($this);
-
-        return $factory->makeGraphAlbum();
-    }
-
-    /**
-     * Convenience method for creating a GraphPage collection.
-     *
-     * @return \Facebook\GraphNodes\GraphPage
-     *
-     * @throws FacebookSDKException
-     */
-    public function getGraphPage()
-    {
-        $factory = new GraphNodeFactory($this);
-
-        return $factory->makeGraphPage();
-    }
-
-    /**
-     * Convenience method for creating a GraphSessionInfo collection.
-     *
-     * @return \Facebook\GraphNodes\GraphSessionInfo
-     *
-     * @throws FacebookSDKException
-     */
-    public function getGraphSessionInfo()
-    {
-        $factory = new GraphNodeFactory($this);
-
-        return $factory->makeGraphSessionInfo();
-    }
-
-    /**
-     * Convenience method for creating a GraphUser collection.
-     *
-     * @return \Facebook\GraphNodes\GraphUser
-     *
-     * @throws FacebookSDKException
-     */
-    public function getGraphUser()
-    {
-        $factory = new GraphNodeFactory($this);
-
-        return $factory->makeGraphUser();
-    }
-
-    /**
-     * Convenience method for creating a GraphEvent collection.
-     *
-     * @return \Facebook\GraphNodes\GraphEvent
-     *
-     * @throws FacebookSDKException
-     */
-    public function getGraphEvent()
-    {
-        $factory = new GraphNodeFactory($this);
-
-        return $factory->makeGraphEvent();
-    }
-
-    /**
-     * Convenience method for creating a GraphGroup collection.
-     *
-     * @return \Facebook\GraphNodes\GraphGroup
-     *
-     * @throws FacebookSDKException
-     */
-    public function getGraphGroup()
-    {
-        $factory = new GraphNodeFactory($this);
-
-        return $factory->makeGraphGroup();
-    }
-
-    /**
-     * Instantiate a new GraphList from response.
-     *
-     * @param string|null $subclassName The GraphNode subclass to cast list items to.
-     * @param boolean     $auto_prefix  Toggle to auto-prefix the subclass name.
-     *
-     * @return \Facebook\GraphNodes\GraphList
-     *
-     * @throws FacebookSDKException
-     *
-     * @deprecated 5.0.0 getGraphList() has been renamed to getGraphEdge()
-     * @todo v6: Remove this method
-     */
-    public function getGraphList($subclassName = null, $auto_prefix = true)
-    {
-        return $this->getGraphEdge($subclassName, $auto_prefix);
-    }
-
-    /**
-     * Instantiate a new GraphEdge from response.
-     *
-     * @param string|null $subclassName The GraphNode subclass to cast list items to.
-     * @param boolean     $auto_prefix  Toggle to auto-prefix the subclass name.
-     *
-     * @return \Facebook\GraphNodes\GraphEdge
-     *
-     * @throws FacebookSDKException
-     */
-    public function getGraphEdge($subclassName = null, $auto_prefix = true)
-    {
-        $factory = new GraphNodeFactory($this);
-
-        return $factory->makeGraphEdge($subclassName, $auto_prefix);
+        if(!empty($this->decodedBody['failure'])){
+            return array('count' => $this->decodedBody['failure'], 'error' => $this->decodedBody['results']);    
+        } else{
+            return false;
+        }
     }
 }

@@ -125,7 +125,7 @@ class FCMNotification
             'color' => static::DEFAULT_COLOR,
             'icon' => static::DEFAULT_ICON,
             'priority' => static::DEFAULT_PRIORITY,
-            'data' => (object) array(),
+            'data' => array(),
         ], $config);
 
         $this->setDevices($config['devices']);
@@ -188,8 +188,12 @@ class FCMNotification
     /**
      * Set devices target.
      */
-    public function setDevices(array $devices = [])
+    public function setDevices($devices = array())
     {
+        if (!is_array($devices)) {
+            throw new \InvalidArgumentException('Devices must be array.');
+        } 
+        
         $this->devices = $devices;
     }
 
@@ -316,6 +320,9 @@ class FCMNotification
      */
     public function setPriority($priority)
     {
+        if (!in_array($priority, array('high', 'normal'))) {
+            throw new \InvalidArgumentException('Priority must be \'high\' or \'normal\'.');
+        }
         $this->priority = $priority;
     }
 
@@ -332,8 +339,16 @@ class FCMNotification
     /**
      * Set the notification data.
      */
-    public function setData($data)
+    public function setData($data = array())
     {
+        if (!is_array($data)) {
+            throw new \InvalidArgumentException('Data must be array.');
+        }
+
+        if(empty($data)){ //To fix json_encode
+            $data = (Object) array();
+        }
+
         $this->data = $data;
     }
 }

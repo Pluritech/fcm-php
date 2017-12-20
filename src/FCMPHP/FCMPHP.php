@@ -56,7 +56,7 @@ class FCMPHP
     protected $fcm_server_key;
 
     /**
-     * @var FacebookResponse|FacebookBatchResponse|null Stores the last request made to Graph.
+     * @var FCMPHPResponse|null Stores the last request made to FCM.
      */
     protected $lastResponse;
 
@@ -97,9 +97,9 @@ class FCMPHP
     }
 
     /**
-     * Returns the last response returned from Graph.
+     * Returns the last response returned from FCM.
      *
-     * @return FacebookResponse|FacebookBatchResponse|null
+     * @return FCMPHPResponse|null
      */
     public function getLastResponse()
     {
@@ -111,13 +111,10 @@ class FCMPHP
      *
      * @param string                  $endpoint
      * @param array                   $params
-     * @param AccessToken|string|null $accessToken
-     * @param string|null             $eTag
-     * @param string|null             $graphVersion
      *
-     * @return FacebookResponse
+     * @return FCMPHPResponse
      *
-     * @throws FacebookSDKException
+     * @throws FCMPHPException
      */
     public function send(FCMNotification $notification){
 

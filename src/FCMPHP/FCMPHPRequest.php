@@ -30,7 +30,7 @@ use FCMPHP\Exceptions\FCMPHPException;
 /**
  * Class Request
  *
- * @package Facebook
+ * @package FCMPHP
  */
 class FCMPHPRequest
 {
@@ -41,7 +41,7 @@ class FCMPHPRequest
     protected $method;
 
     /**
-     * @var string The Graph endpoint for this request.
+     * @var string The fcm endpoint for this request.
      */
     protected $endpoint;
 
@@ -157,18 +157,6 @@ class FCMPHPRequest
     public function setParams(array $params = [])
     {
         $this->params = $params;
-    }
-
-    /**
-     * Returns the body of the request as URL-encoded.
-     *
-     * @return RequestBodyUrlEncoded
-     */
-    public function getUrlEncodedBody()
-    {
-        $params = $this->getPostParams();
-
-        return new RequestBodyUrlEncoded($params);
     }
 
     /**
