@@ -37,7 +37,7 @@ class FCMPHPClient
     /**
      * @const string Production API URL.
      */
-    const BASE_GRAPH_URL = 'https://fcm.googleapis.com/fcm/send';
+    const BASE_FCM_URL = 'https://fcm.googleapis.com/fcm';
 
     /**
      * @const int The timeout in seconds for a normal request.
@@ -67,9 +67,9 @@ class FCMPHPClient
     /**
      * Sets the HTTP client handler.
      *
-     * @param FacebookHttpClientInterface $httpClientHandler
+     * @param HttpClientInterface $httpClientHandler
      */
-    public function setHttpClientHandler(FacebookHttpClientInterface $httpClientHandler)
+    public function setHttpClientHandler(HttpClientInterface $httpClientHandler)
     {
         $this->httpClientHandler = $httpClientHandler;
     }
@@ -77,7 +77,7 @@ class FCMPHPClient
     /**
      * Returns the HTTP client handler.
      *
-     * @return FacebookHttpClientInterface
+     * @return HttpClientInterface
      */
     public function getHttpClientHandler()
     {
@@ -95,39 +95,31 @@ class FCMPHPClient
     }
 
     /**
-     * Returns the base Graph URL.
+     * Returns the base FCM URL.
      *
      * @return string
      */
-    public function getBaseGraphUrl()
+    public function getBaseFCMUrl()
     {
-        return static::BASE_GRAPH_URL;
+        return static::BASE_FCM_URL;
     }
 
     /**
      * Prepares the request for sending to the client handler.
      *
-     * @param FacebookRequest $request
+     * @param FCMPHPRequest $request
      *
      * @return array
      */
-    public function prepareRequestMessage(FacebookRequest $request)
+    public function prepareRequestMessage(FCMPHPRequest $request)
     {
-        $postToVideoUrl = $request->containsVideoUploads();
-        $url = $this->getBaseGraphUrl($postToVideoUrl) . $request->getUrl();
+        $url = $this->getBaseFCMUrl . $request->getUrl();
 
-        // If we're sending files they should be sent as multipart/form-data
-        if ($request->containsFileUploads()) {
-            $requestBody = $request->getMultipartBody();
-            $request->setHeaders([
-                'Content-Type' => 'multipart/form-data; boundary=' . $requestBody->getBoundary(),
-            ]);
-        } else {
-            $requestBody = $request->getUrlEncodedBody();
-            $request->setHeaders([
-                'Content-Type' => 'application/x-www-form-urlencoded',
-            ]);
-        }
+        //PAREI AQUI
+        $requestBody = $request->getJsonEncodedBody();
+        $request->setHeaders([
+            'Content-Type' => 'application/json',
+        ]);
 
         return [
             $url,
@@ -138,37 +130,27 @@ class FCMPHPClient
     }
 
     /**
-     * Makes the request to Graph and returns the result.
+     * Makes the request to FCM and returns the result.
      *
-     * @param FacebookRequest $request
+     * @param FCMPHPRequest $request
      *
-     * @return FacebookResponse
+     * @return FCMPHPResponse
      *
-     * @throws FacebookSDKException
+     * @throws FCMPHPException
      */
-    public function sendRequest(FacebookRequest $request)
+    public function sendRequest(FCMPHPRequest $request)
     {
-        if (get_class($request) === 'Facebook\FacebookRequest') {
-            $request->validateAccessToken();
-        }
-
         list($url, $method, $headers, $body) = $this->prepareRequestMessage($request);
 
-        // Since file uploads can take a while, we need to give more time for uploads
         $timeOut = static::DEFAULT_REQUEST_TIMEOUT;
-        if ($request->containsFileUploads()) {
-            //$timeOut = static::DEFAULT_FILE_UPLOAD_REQUEST_TIMEOUT;
-        } elseif ($request->containsVideoUploads()) {
-            //$timeOut = static::DEFAULT_VIDEO_UPLOAD_REQUEST_TIMEOUT;
-        }
 
-        // Should throw `FacebookSDKException` exception on HTTP client error.
+        // Should throw `FCMPHPEsxception` exception on HTTP client error.
         // Don't catch to allow it to bubble up.
         $rawResponse = $this->httpClientHandler->send($url, $method, $body, $headers, $timeOut);
 
         static::$requestCount++;
 
-        $returnResponse = new FacebookResponse(
+        $returnResponse = new FCMPHPResponse(
             $request,
             $rawResponse->getBody(),
             $rawResponse->getHttpResponseCode(),
@@ -180,22 +162,5 @@ class FCMPHPClient
         }
 
         return $returnResponse;
-    }
-
-    /**
-     * Makes a batched request to Graph and returns the result.
-     *
-     * @param FacebookBatchRequest $request
-     *
-     * @return FacebookBatchResponse
-     *
-     * @throws FacebookSDKException
-     */
-    public function sendBatchRequest(FacebookBatchRequest $request)
-    {
-        $request->prepareRequestsForBatch();
-        $facebookResponse = $this->sendRequest($request);
-
-        return new FacebookBatchResponse($request, $facebookResponse);
     }
 }

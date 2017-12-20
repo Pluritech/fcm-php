@@ -10,6 +10,11 @@
             "name": "Guilherme Augusto Silva Valentim",
             "email": "valentim.guilherme@gmail.com",
             "homepage": "https://www.pluritech.com.br"
+        },
+        {
+            "name": "Natália Gonçalves Machado",
+            "email": "nathygmachado@gmail.com",
+            "homepage": "https://www.pluritech.com.br"
         }
     ],
     "require": {

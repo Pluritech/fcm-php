@@ -21,26 +21,19 @@
  * THE SOFTWARE.
  *
  */
-namespace FCMPHP\HttpClients;
+namespace FCMPHP\Http;
+
 /**
- * Interface HttpClientInterface
+ * Interface
  *
  * @package FCMPHP
  */
-interface HttpClientInterface
+interface RequestBodyInterface
 {
     /**
-     * Sends a request to the server and returns the raw response.
+     * Get the body of the request to send to FCM.
      *
-     * @param string $url     The endpoint to send the request to.
-     * @param string $method  The request method.
-     * @param string $body    The body of the request.
-     * @param array  $headers The request headers.
-     * @param int    $timeOut The timeout in seconds for the request.
-     *
-     * @return \FCMPHP\Http\FCMRawResponse Raw response from the server.
-     *
-     * @throws \FCMPHP\Exceptions\FCMPushException
+     * @return string
      */
-    public function send($url, $method, $body, array $headers, $timeOut);
+    public function getBody();
 }

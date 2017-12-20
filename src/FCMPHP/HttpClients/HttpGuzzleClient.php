@@ -23,7 +23,7 @@
  */
 namespace FCMPHP\HttpClients;
 
-use FCMPHP\Http\GraphRawResponse;
+use FCMPHP\Http\FCMRawResponse;
 use FCMPHP\Exceptions\FCMPushException;
 
 use GuzzleHttp\Client;
@@ -74,7 +74,7 @@ class HttpGuzzleClient implements HttpClientInterface
         $rawBody = $rawResponse->getBody();
         $httpStatusCode = $rawResponse->getStatusCode();
 
-        return new GraphRawResponse($rawHeaders, $rawBody, $httpStatusCode);
+        return new FCMRawResponse($rawHeaders, $rawBody, $httpStatusCode);
     }
 
     /**

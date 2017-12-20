@@ -21,26 +21,35 @@
  * THE SOFTWARE.
  *
  */
-namespace FCMPHP\HttpClients;
+namespace FCMPHP\Http;
+
 /**
- * Interface HttpClientInterface
+ * Class RequestBodyUrlEncoded
  *
  * @package FCMPHP
  */
-interface HttpClientInterface
+class RequestBodyUrlEncoded implements RequestBodyInterface
 {
     /**
-     * Sends a request to the server and returns the raw response.
-     *
-     * @param string $url     The endpoint to send the request to.
-     * @param string $method  The request method.
-     * @param string $body    The body of the request.
-     * @param array  $headers The request headers.
-     * @param int    $timeOut The timeout in seconds for the request.
-     *
-     * @return \FCMPHP\Http\FCMRawResponse Raw response from the server.
-     *
-     * @throws \FCMPHP\Exceptions\FCMPushException
+     * @var array The parameters to send with this request.
      */
-    public function send($url, $method, $body, array $headers, $timeOut);
+    protected $params = [];
+
+    /**
+     * Creates a new GraphUrlEncodedBody entity.
+     *
+     * @param array $params
+     */
+    public function __construct(array $params)
+    {
+        $this->params = $params;
+    }
+
+    /**
+     * 
+     */
+    public function getBody()
+    {
+        return http_build_query($this->params, null, '&');
+    }
 }

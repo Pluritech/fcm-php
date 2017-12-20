@@ -24,11 +24,11 @@
 namespace FCMPHP\Exceptions;
 
 /**
- * Class FCMPushException
+ * Class FCMPHPException
  *
  * @package FCMPHP
  */
-class FCMPushException extends \Exception
+class FCMPHPException extends \Exception
 {
 
 }

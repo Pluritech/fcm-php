@@ -24,11 +24,11 @@
 namespace FCMPHP\Http;
 
 /**
- * Class GraphRawResponse
+ * Class FCMRawResponse
  *
  * @package FCMPHP
  */
-class GraphRawResponse
+class FCMRawResponse
 {
     /**
      * @var array The response headers in the form of an associative array.
@@ -46,7 +46,7 @@ class GraphRawResponse
     protected $httpResponseCode;
 
     /**
-     * Creates a new GraphRawResponse entity.
+     * Creates a new FCMRawResponse entity.
      *
      * @param string|array $headers        The headers as a raw string or array.
      * @param string       $body           The raw response body.

@@ -23,7 +23,7 @@
  */
 namespace FCMPHP\HttpClients;
 
-use FCMPHP\Http\GraphRawResponse;
+use FCMPHP\Http\FCMRawResponse;
 use FCMPHP\Exceptions\FCMPushException;
 
 /**
@@ -78,7 +78,7 @@ class HttpCurlClient implements HttpClientInterface
 
         $this->closeConnection();
 
-        return new GraphRawResponse($rawHeaders, $rawBody);
+        return new FCMRawResponse($rawHeaders, $rawBody);
     }
 
     /**
@@ -100,9 +100,6 @@ class HttpCurlClient implements HttpClientInterface
             CURLOPT_TIMEOUT => $timeOut,
             CURLOPT_RETURNTRANSFER => true, // Follow 301 redirects
             CURLOPT_HEADER => true // Enable header processing
-            //CURLOPT_SSL_VERIFYHOST => 2,
-            //CURLOPT_SSL_VERIFYPEER => true,
-            //CURLOPT_CAINFO => __DIR__ . '/certs/DigiCertHighAssuranceEVRootCA.pem',
         ];
 
         if ($method !== "GET") {
