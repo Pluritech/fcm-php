@@ -26,12 +26,12 @@ $FCMPHP = new \FCMPHP\FCMPHP([
 
 $FCMNotification = new \FCMPHP\FCMNotification();
 
-$FCMNotification->setTitle({'push-title'});
-$FCMNotification->setBody({'push-description'});
-$FCMNotification->setPriority({'push-priority'}); //high or normal
+$FCMNotification->setTitle('{push-title}');
+$FCMNotification->setBody('{push-description}');
+$FCMNotification->setPriority('{push-priority}'); //high or normal
 $FCMNotification->setDevices([ 
-     {'device-id'}
-    ,{'device-id'}
+     '{device-id}'
+    ,'{device-id}'
 ]); //One or more devices
 
 $request = $FCMPHP->send($FCMNotification);
