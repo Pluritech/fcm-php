@@ -165,7 +165,7 @@ class FCMNotification
             ,"notification" => array(
                  "title" => $this->getTitle()
                 ,"body"  => $this->getBody()
-                ,"click_action" => $this->getClickAction()
+                ,"click_action" => $this->getClickAction() //fix
                 ,"sound" => $this->getSound()
                 ,"color" => $this->getColor()
                 ,"icon" => $this->getIcon()
