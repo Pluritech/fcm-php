@@ -37,11 +37,6 @@ class FCMNotification
     const DEFAULT_PRIORITY = 'normal';
 
     /**
-     * @const string click_action on FCM.
-     */
-    const DEFAULT_CLICK_ACTION = 'FCM_PLUGIN_ACTIVITY';
-
-    /**
      * @const string sound on receive push.
      */
     const DEFAULT_SOUND = 'default';
@@ -120,7 +115,7 @@ class FCMNotification
             'devices' => array(),
             'title' => null,
             'body' => null,
-            'click_action' => static::DEFAULT_CLICK_ACTION,
+            'click_action' => null,
             'sound' => static::DEFAULT_SOUND,
             'color' => static::DEFAULT_COLOR,
             'icon' => static::DEFAULT_ICON,
@@ -165,7 +160,7 @@ class FCMNotification
             ,"notification" => array(
                  "title" => $this->getTitle()
                 ,"body"  => $this->getBody()
-                ,"click_action" => $this->getClickAction() //fix
+                ,"click_action" => $this->getClickAction() 
                 ,"sound" => $this->getSound()
                 ,"color" => $this->getColor()
                 ,"icon" => $this->getIcon()
