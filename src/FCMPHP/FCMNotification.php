@@ -72,11 +72,6 @@ class FCMNotification
     protected $body;
 
     /**
-     * @var Click action
-     */
-    protected $click_action;
-
-    /**
      * @var Content available
      */
     protected $content_available;
@@ -112,7 +107,6 @@ class FCMNotification
      * @param array  $devices
      * @param string $title
      * @param string $body
-     * @param string $click_action
      * @param string $sound
      * @param string $color
      * @param string $icon
@@ -125,7 +119,6 @@ class FCMNotification
             'devices' => array(),
             'title' => null,
             'body' => null,
-            'click_action' => null,
             'content_available' => static::DEFAULT_CONTENT_AVAILABLE,
             'sound' => static::DEFAULT_SOUND,
             'color' => static::DEFAULT_COLOR,
@@ -137,7 +130,6 @@ class FCMNotification
         $this->setDevices($config['devices']);
         $this->setTitle($config['title']);
         $this->setBody($config['body']);
-        $this->setClickAction($config['click_action']);
         $this->setContentAvailable($config['content_available']);
         $this->setSound($config['sound']);
         $this->setColor($config['color']);
@@ -147,7 +139,7 @@ class FCMNotification
     }
 
     /**
-     * Returns the devices target.
+     * Format body
      *
      * @return Devices
      *
@@ -169,15 +161,6 @@ class FCMNotification
 
         return array(
             "registration_ids" => $this->getDevices()
-            ,"notification" => array(
-                 "title" => $this->getTitle()
-                ,"body"  => $this->getBody()
-                ,"click_action" => $this->getClickAction() 
-                ,"content_available" => $this->getContentAvailable() 
-                ,"sound" => $this->getSound()
-                ,"color" => $this->getColor()
-                ,"icon" => $this->getIcon()
-            )
             ,"priority" => $this->getPriority()
             ,"data" => $this->getData()
         );
@@ -196,7 +179,7 @@ class FCMNotification
     /**
      * Set devices target.
      */
-    public function setDevices($devices = array())
+    private function setDevices($devices = array())
     {
         if (!is_array($devices)) {
             throw new \InvalidArgumentException('Devices must be array.');
@@ -218,7 +201,7 @@ class FCMNotification
     /**
      * Set the notification title.
      */
-    public function setTitle($title)
+    private function setTitle($title)
     {
         $this->title = $title;
     }
@@ -236,27 +219,9 @@ class FCMNotification
     /**
      * Set the notification body.
      */
-    public function setBody($body)
+    private function setBody($body)
     {
         $this->body = $body;
-    }
-
-    /**
-     * Returns the notification clickAction.
-     *
-     * @return ClickAction
-     */
-    public function getClickAction()
-    {
-        return $this->click_action;
-    }
-
-    /**
-     * Set the notification click_action.
-     */
-    public function setClickAction($click_action)
-    {
-        $this->click_action = $click_action;
     }
 
     /**
@@ -272,7 +237,7 @@ class FCMNotification
     /**
      * Set the notification content_available.
      */
-    public function setContentAvailable($content_available)
+    private function setContentAvailable($content_available)
     {
         $this->content_available = $content_available;
     }
@@ -290,7 +255,7 @@ class FCMNotification
     /**
      * Set the notification sound.
      */
-    public function setSound($sound)
+    private function setSound($sound)
     {
         $this->sound = $sound;
     }
@@ -308,7 +273,7 @@ class FCMNotification
     /**
      * Set the notification color.
      */
-    public function setColor($color)
+    private function setColor($color)
     {
         $this->color = $color;
     }
@@ -326,7 +291,7 @@ class FCMNotification
     /**
      * Set the notification icon.
      */
-    public function setIcon($icon)
+    private function setIcon($icon)
     {
         $this->icon = $icon;
     }
@@ -344,7 +309,7 @@ class FCMNotification
     /**
      * Set the notification priority.
      */
-    public function setPriority($priority)
+    private function setPriority($priority)
     {
         if (!in_array($priority, array('high', 'normal'))) {
             throw new \InvalidArgumentException('Priority must be \'high\' or \'normal\'.');
@@ -365,7 +330,7 @@ class FCMNotification
     /**
      * Set the notification data.
      */
-    public function setData($data = array())
+    private function setData($data = array())
     {
         if (!is_array($data)) {
             throw new \InvalidArgumentException('Data must be array.');
