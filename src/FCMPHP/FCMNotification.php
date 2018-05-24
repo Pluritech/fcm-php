@@ -52,6 +52,11 @@ class FCMNotification
     const DEFAULT_ICON = 'fcm_push_icon';
 
     /**
+     * @const string notification icon.
+     */
+    const DEFAULT_CONTENT_AVAILABLE = true;
+
+    /**
      * @var 
      */
     protected $devices; //Analisar entidade
@@ -70,6 +75,11 @@ class FCMNotification
      * @var Click action
      */
     protected $click_action;
+
+    /**
+     * @var Content available
+     */
+    protected $content_available;
 
     /**
      * @var Sound
@@ -116,6 +126,7 @@ class FCMNotification
             'title' => null,
             'body' => null,
             'click_action' => null,
+            'content_available' => static::DEFAULT_CONTENT_AVAILABLE,
             'sound' => static::DEFAULT_SOUND,
             'color' => static::DEFAULT_COLOR,
             'icon' => static::DEFAULT_ICON,
@@ -127,6 +138,7 @@ class FCMNotification
         $this->setTitle($config['title']);
         $this->setBody($config['body']);
         $this->setClickAction($config['click_action']);
+        $this->setContentAvailable($config['content_available']);
         $this->setSound($config['sound']);
         $this->setColor($config['color']);
         $this->setIcon($config['icon']);
@@ -161,6 +173,7 @@ class FCMNotification
                  "title" => $this->getTitle()
                 ,"body"  => $this->getBody()
                 ,"click_action" => $this->getClickAction() 
+                ,"content_available" => $this->getContentAvailable() 
                 ,"sound" => $this->getSound()
                 ,"color" => $this->getColor()
                 ,"icon" => $this->getIcon()
@@ -244,6 +257,24 @@ class FCMNotification
     public function setClickAction($click_action)
     {
         $this->click_action = $click_action;
+    }
+
+    /**
+     * Returns the notification content_available.
+     *
+     * @return content_available
+     */
+    public function getContentAvailable()
+    {
+        return $this->content_available;
+    }
+
+    /**
+     * Set the notification content_available.
+     */
+    public function setContentAvailable($content_available)
+    {
+        $this->content_available = $content_available;
     }
 
     /**
