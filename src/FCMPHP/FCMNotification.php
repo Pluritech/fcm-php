@@ -149,7 +149,34 @@ class FCMNotification
         $this->setData($config['data']);
         $this->setBadge($config['badge']);
     }
+    
+    /**
+     * Format body
+     *
+     * @return Devices
+     *
+     * @throws InvalidArgumentException
+     */
+    public function formatBody(){
 
+        if (!$this->getDevices()) {
+            throw new \InvalidArgumentException('You need set one or more devices to send notification.');
+        }
+
+        if (!$this->getTitle()) {
+            throw new \InvalidArgumentException('You need set the notification title FCMNotification.title.');
+        }
+
+        if (!$this->getBody()) {
+            throw new \InvalidArgumentException('You need set the notification body FCMNotification.body.');
+        }
+
+        return array(
+            "registration_ids" => $this->getDevices()
+            ,"priority" => $this->getPriority()
+            ,"data" => $this->getData()
+        );
+    }
 
     /**
      * Returns the devices target.
