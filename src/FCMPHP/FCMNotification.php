@@ -130,7 +130,6 @@ class FCMNotification
             'title' => null,
             'body' => null,
             'badge' => static::DEFAULT_BADGE,
-            'click_action' => static::DEFAULT_CLICK_ACTION,
             'content_available' => static::DEFAULT_CONTENT_AVAILABLE,
             'sound' => static::DEFAULT_SOUND,
             'color' => static::DEFAULT_COLOR,
@@ -151,44 +150,6 @@ class FCMNotification
         $this->setBadge($config['badge']);
     }
 
-    /**
-     * Format body
-     *
-     * @return Devices
-     *
-     * @throws InvalidArgumentException
-     */
-    public function formatBody(){
-
-        if (!$this->getDevices()) {
-            throw new \InvalidArgumentException('You need set one or more devices to send notification.');
-        }
-
-        if (!$this->getTitle()) {
-            throw new \InvalidArgumentException('You need set the notification title FCMNotification.title.');
-        }
-
-        if (!$this->getBody()) {
-            throw new \InvalidArgumentException('You need set the notification body FCMNotification.body.');
-        }
-
-        return array(
-            "registration_ids" => $this->getDevices()
-
-            ,"notification" => array(
-                 "title" => $this->getTitle()
-                ,"body"  => $this->getBody()
-                ,"click_action" => $this->getBody()
-                ,"sound" => $this->getSound()
-                ,"color" => $this->getColor()
-                ,"icon"  => $this->getIcon()
-                ,"badge" => $this->getBadge()
-            )
-
-            ,"priority" => $this->getPriority()
-            ,"data" => $this->getData()
-        );
-    }
 
     /**
      * Returns the devices target.
