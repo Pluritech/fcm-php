@@ -55,6 +55,11 @@ class FCMNotification
      * @const string notification icon.
      */
     const DEFAULT_ICON = 'fcm_push_icon';
+    
+    /**
+     * @const string notification icon.
+     */
+    const DEFAULT_BADGE = '0';
 
     /**
      * @var 
@@ -85,6 +90,10 @@ class FCMNotification
      * @var Color
      */
     protected $color;
+    /**
+     * @var badge
+     */
+    protected $badge;
 
     /**
      * @var Icon
@@ -111,6 +120,7 @@ class FCMNotification
      * @param string $sound
      * @param string $color
      * @param string $icon
+     * @param string $badge
      * @param string $priority
      *
      */
@@ -120,6 +130,7 @@ class FCMNotification
             'devices' => array(),
             'title' => null,
             'body' => null,
+            'badge' => static::DEFAULT_BADGE,
             'click_action' => static::DEFAULT_CLICK_ACTION,
             'sound' => static::DEFAULT_SOUND,
             'color' => static::DEFAULT_COLOR,
@@ -137,6 +148,7 @@ class FCMNotification
         $this->setIcon($config['icon']);
         $this->setPriority($config['priority']);
         $this->setData($config['data']);
+        $this->setBadge($config['badge']);
     }
 
     /**
@@ -168,7 +180,8 @@ class FCMNotification
                 ,"click_action" => $this->getBody()
                 ,"sound" => $this->getSound()
                 ,"color" => $this->getColor()
-                ,"icon" => $this->getIcon()
+                ,"icon"  => $this->getIcon()
+                ,"badge" => $this->getBadge()
             )
             ,"priority" => $this->getPriority()
             ,"data" => $this->getData()
@@ -288,9 +301,27 @@ class FCMNotification
     }
 
     /**
-     * Returns the notification color.
+     * Returns the notification badge.
      *
      * @return Color
+     */
+    public function getBadge()
+    {
+        return $this->badge;
+    }
+
+    /**
+     * Set the notification badge.
+     */
+    public function setBadge($badge)
+    {
+        $this->badge = $badge;
+    }
+
+    /**
+     * Returns the notification icon.
+     *
+     * @return icon
      */
     public function getIcon()
     {
