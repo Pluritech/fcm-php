@@ -64,7 +64,8 @@ class FCMNotificationIos extends FCMNotification
     		 "title" => $this->getTitle()
     		,"body" => $this->getBody()
     		,"sound" => $this->getSound() 
-    		,"color" => $this->getColor() 
+    		,"color" => $this->getColor()
+            ,"badge" =>$this->getBadge()
     		,"icon" => $this->getIcon() 
     		,"content-available" => $this->getContentAvailable() //This "-" is not my fault. Sorry.
         );
