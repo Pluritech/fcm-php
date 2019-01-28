@@ -370,6 +370,6 @@ class FCMNotification
             $data = (Object) array();
         }
 
-        $this->data = $data;
+        $this->data = (Object) $data;
     }
 }
