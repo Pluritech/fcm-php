@@ -83,6 +83,7 @@ class FCMNotificationAndroid extends FCMNotification
         	)
        	);
 
+        $body['data'] = json_encode($body['data']);
        	return $body;
     }
 

@@ -50,6 +50,6 @@ class RequestBodyJsonEncoded implements RequestBodyInterface
      */
     public function getBody()
     {
-        return json_encode($this->params, JSON_FORCE_OBJECT);
+        return json_encode($this->params);
     }
 }

@@ -368,7 +368,7 @@ class FCMNotification
 
         if(empty($data)){ //To fix json_encode
            $data = (Object) array();
-        }            
+        }
 
         $this->data = $data;
     }
