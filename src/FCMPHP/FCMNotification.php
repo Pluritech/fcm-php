@@ -135,7 +135,7 @@ class FCMNotification
             'color' => static::DEFAULT_COLOR,
             'icon' => static::DEFAULT_ICON,
             'priority' => static::DEFAULT_PRIORITY,
-            'data' => (object) array(),
+            'data' => array(),
         ], $config);
 
         $this->setDevices($config['devices']);
@@ -368,10 +368,8 @@ class FCMNotification
 
         if(empty($data)){ //To fix json_encode
            $data = (Object) array();
-        }else{ 
-            // else adicionado por que o json_encode provavelmente não funciona com o array vazio
-            $this->data = json_encode($data);
-        }
+        }            
 
+        $this->data = $data;
     }
 }
