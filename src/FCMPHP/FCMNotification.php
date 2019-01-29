@@ -362,14 +362,16 @@ class FCMNotification
      */
     private function setData($data)
     {
-        /*if (!is_array($data)) {
+        if (!is_array($data)) {
             throw new \InvalidArgumentException('Data must be array.');
-        }*/
+        }
 
         if(empty($data)){ //To fix json_encode
            $data = (Object) array();
+        }else{ 
+            // else adicionado por que o json_encode provavelmente não funciona com o array vazio
+            $this->data = json_encode($data);
         }
 
-        $this->data = json_encode($data);
     }
 }
