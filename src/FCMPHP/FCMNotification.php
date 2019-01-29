@@ -360,7 +360,7 @@ class FCMNotification
     /**
      * Set the notification data.
      */
-    private function setData($data)
+    private function setData($data = array())
     {
         if (!is_array($data)) {
             throw new \InvalidArgumentException('Data must be array.');
@@ -368,9 +368,8 @@ class FCMNotification
 
         if(empty($data)){ //To fix json_encode
            $this->data = (Object) array();
-        }else{
-            $this->data = json_encode($data);
         }
 
+        $this->data = $data;
     }
 }
