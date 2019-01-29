@@ -73,7 +73,7 @@ class FCMNotificationAndroid extends FCMNotification
     	$body = parent::formatBody();
         
         if(!is_array($body['data'])){
-            $body['data'] = json_decode($body['data'], true)
+            $body['data'] = json_decode($body['data'], true);
         }
 
         $body['data'] = array_merge($body['data'], array(
