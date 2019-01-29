@@ -135,7 +135,7 @@ class FCMNotification
             'color' => static::DEFAULT_COLOR,
             'icon' => static::DEFAULT_ICON,
             'priority' => static::DEFAULT_PRIORITY,
-            'data' => array(),
+            'data' => (object) array(),
         ], $config);
 
         $this->setDevices($config['devices']);
@@ -360,16 +360,16 @@ class FCMNotification
     /**
      * Set the notification data.
      */
-    private function setData($data = array())
+    private function setData($data)
     {
-        if (!is_array($data)) {
+        /*if (!is_array($data)) {
             throw new \InvalidArgumentException('Data must be array.');
-        }
+        }*/
 
         if(empty($data)){ //To fix json_encode
-            $data = (Object) array();
+           $data = (Object) array();
         }
 
-        $this->data = (Object) $data;
+        $this->data = json_encode($data);
     }
 }
