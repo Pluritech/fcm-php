@@ -71,7 +71,7 @@ class FCMNotificationAndroid extends FCMNotification
     public function formatBody(){
 
     	$body = parent::formatBody();
-
+        /* currently not used
         $body['data'] = array_merge($body['data'], array(
         		 "title" => $this->getTitle()
         		,"body" => $this->getBody()
@@ -81,7 +81,7 @@ class FCMNotificationAndroid extends FCMNotification
         		,"color" => $this->getColor() 
         		,"icon" => $this->getIcon() 
         	)
-       	);
+       	);*/
 
        	return $body;
     }

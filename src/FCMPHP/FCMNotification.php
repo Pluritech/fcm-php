@@ -369,7 +369,7 @@ class FCMNotification
         if(empty($data)){ //To fix json_encode
            $this->data = (Object) array();
         }
-
-        $this->data = $data;
+        //to fix capacitor notification integration that converts 1° level with equal
+        $this->data = array('object' => $data);
     }
 }
