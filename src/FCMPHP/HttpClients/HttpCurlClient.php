@@ -92,7 +92,7 @@ class HttpCurlClient implements HttpClientInterface
      */
     public function openConnection($url, $method, $body, array $headers, $timeOut)
     {
-        $options = [
+        $options = array(
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_HTTPHEADER => $this->compileRequestHeaders($headers),
             CURLOPT_URL => $url,
@@ -100,7 +100,7 @@ class HttpCurlClient implements HttpClientInterface
             CURLOPT_TIMEOUT => $timeOut,
             CURLOPT_RETURNTRANSFER => true, // Follow 301 redirects
             CURLOPT_HEADER => true // Enable header processing
-        ];
+        );
 
         if ($method !== "GET") {
             $options[CURLOPT_POSTFIELDS] = $body;
@@ -135,7 +135,7 @@ class HttpCurlClient implements HttpClientInterface
      */
     public function compileRequestHeaders(array $headers)
     {
-        $return = [];
+        $return = array();
 
         foreach ($headers as $key => $value) {
             $return[] = $key . ': ' . $value;
@@ -155,6 +155,6 @@ class HttpCurlClient implements HttpClientInterface
         $rawBody = array_pop($parts);
         $rawHeaders = implode("\r\n\r\n", $parts);
 
-        return [trim($rawHeaders), trim($rawBody)];
+        return array(trim($rawHeaders), trim($rawBody));
     }
 }

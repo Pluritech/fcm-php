@@ -8,12 +8,12 @@ This repository contains the open source PHP SDK that allows you to access the G
 The Google FCM PHP SDK can be installed with [Composer](https://getcomposer.org/). Run this command:
 
 ```sh
-composer require pluritech/fcm-php
+composer require danielprr/fcm-php
 ```
 
 ## Usage
 
-> **Note:** This version of the Google FCM SDK for PHP requires PHP 5.4 or greater.
+> **Note:** This version of the Google FCM SDK for PHP requires PHP 5.3 or greater.
 
 Simple Send push example.
 

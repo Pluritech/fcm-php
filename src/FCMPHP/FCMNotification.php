@@ -67,46 +67,46 @@ class FCMNotification
     protected $devices; //Analisar entidade
 
     /**
-     * @var Notification title
+     * @var mixed Notification title
      */
     protected $title;
 
     /**
-     * @var Notification body
+     * @var mixed Notification body
      */
     protected $body;
 
     /**
-     * @var Content available
+     * @var mixed Content available
      */
     protected $content_available;
 
     /**
-     * @var Sound
+     * @var mixed Sound
      */
     protected $sound; //Analisar entidade
 
     /**
-     * @var Color
+     * @var mixed Color
      */
     protected $color;
     /**
-     * @var badge
+     * @var mixed badge
      */
     protected $badge;
 
     /**
-     * @var Icon
+     * @var mixed Icon
      */
     protected $icon;
 
     /**
-     * @var Priority
+     * @var mixed Priority
      */
     protected $priority;
 
     /**
-     * @var Data non structured
+     * @var mixed Data non structured
      */
     protected $data;
 
@@ -123,9 +123,9 @@ class FCMNotification
      * @param string $priority
      *
      */
-    public function __construct(array $config = [])
+    public function __construct(array $config = array())
     {
-        $config = array_merge([
+        $config = array_merge(array(
             'devices' => array(),
             'title' => null,
             'body' => null,
@@ -136,7 +136,7 @@ class FCMNotification
             'icon' => static::DEFAULT_ICON,
             'priority' => static::DEFAULT_PRIORITY,
             'data' => array(),
-        ], $config);
+        ), $config);
 
         $this->setDevices($config['devices']);
         $this->setTitle($config['title']);
@@ -153,9 +153,9 @@ class FCMNotification
     /**
      * Format body
      *
-     * @return Devices
+     * @return mixed Devices
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function formatBody(){
 
@@ -181,7 +181,7 @@ class FCMNotification
     /**
      * Returns the devices target.
      *
-     * @return Devices
+     * @return mixed Devices
      */
     public function getDevices()
     {
@@ -203,7 +203,7 @@ class FCMNotification
     /**
      * Returns the notification title.
      *
-     * @return Title
+     * @return mixed Title
      */
     public function getTitle()
     {
@@ -221,7 +221,7 @@ class FCMNotification
     /**
      * Returns the notification body.
      *
-     * @return Body
+     * @return mixed Body
      */
     public function getBody()
     {
@@ -239,7 +239,7 @@ class FCMNotification
     /**
      * Returns the notification content_available.
      *
-     * @return content_available
+     * @return mixed Content available
      */
     public function getContentAvailable()
     {
@@ -257,7 +257,7 @@ class FCMNotification
     /**
      * Returns the notification sound.
      *
-     * @return Sound
+     * @return mixed Sound
      */
     public function getSound()
     {
@@ -275,7 +275,7 @@ class FCMNotification
     /**
      * Returns the notification color.
      *
-     * @return Color
+     * @return mixed Color
      */
     public function getColor()
     {
@@ -293,7 +293,7 @@ class FCMNotification
     /**
      * Returns the notification badge.
      *
-     * @return Color
+     * @return mixed Color
      */
     public function getBadge()
     {
@@ -311,7 +311,7 @@ class FCMNotification
     /**
      * Returns the notification icon.
      *
-     * @return icon
+     * @return mixed icon
      */
     public function getIcon()
     {
@@ -329,7 +329,7 @@ class FCMNotification
     /**
      * Returns the notification priority.
      *
-     * @return priority
+     * @return mixed priority
      */
     public function getPriority()
     {
@@ -350,7 +350,7 @@ class FCMNotification
     /**
      * Returns the notification data.
      *
-     * @return data
+     * @return mixed data
      */
     public function getData()
     {

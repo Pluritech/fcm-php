@@ -44,7 +44,7 @@ class FCMNotificationIos extends FCMNotification
      * @param string $priority
      *
      */
-    public function __construct(array $config = [])
+    public function __construct($config = array())
     {
     	parent::__construct($config);
     }
@@ -52,9 +52,9 @@ class FCMNotificationIos extends FCMNotification
     /**
      * Returns the devices target.
      *
-     * @return Devices
+     * @return mixed Devices
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function formatBody(){
 
@@ -76,7 +76,7 @@ class FCMNotificationIos extends FCMNotification
     /**
      * Returns the notification clickAction.
      *
-     * @return ClickAction
+     * @return mixed ClickAction
      */
     public function getClickAction()
     {

@@ -15,6 +15,11 @@
             "name": "Natália Gonçalves Machado",
             "email": "nathygmachado@gmail.com",
             "homepage": "https://www.pluritech.com.br"
+        },
+        {
+            "name": "Daniel Pereira de Azevedo Rosa",
+            "email": "daniel.prr.azevedo@gmail.com",
+            "homepage": "https://github.com/danielprrazevedo"
         }
     ],
     "require": {

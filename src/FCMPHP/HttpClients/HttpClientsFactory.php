@@ -36,7 +36,7 @@ class HttpClientsFactory
     /**
      * HTTP client generation.
      *
-     * @param HttpClientInterface|Client|string|null $handler
+     * @param HttpClientInterface|string|null $handler
      *
      * @throws Exception                If the cURL extension or the Guzzle client aren't available (if required).
      * @throws InvalidArgumentException If the http client handler isn't "curl", "guzzle", or an instance of FCMPHP\HttpClients\HttpClientInterface.

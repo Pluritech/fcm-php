@@ -48,12 +48,12 @@ class FCMPHPRequest
     /**
      * @var array The headers to send with this request.
      */
-    protected $headers = [];
+    protected $headers = array();
 
     /**
      * @var array The parameters to send with this request.
      */
-    protected $params = [];
+    protected $params = array();
 
 
     /**
@@ -63,7 +63,7 @@ class FCMPHPRequest
      * @param string|null             $endpoint
      * @param array|null              $params
      */
-    public function __construct($method = null, $endpoint = null, array $params = [])
+    public function __construct($method = null, $endpoint = null, array $params = array())
     {
         $this->setMethod($method);
         $this->setEndpoint($endpoint);
@@ -101,7 +101,7 @@ class FCMPHPRequest
             throw new FCMPHPException('HTTP method not specified.');
         }
 
-        if (!in_array($this->method, ['GET', 'POST', 'DELETE'])) {
+        if (!in_array($this->method, array('GET', 'POST', 'DELETE'))) {
             throw new FCMPHPException('Invalid HTTP method specified.');
         }
     }
@@ -154,7 +154,7 @@ class FCMPHPRequest
      *
      * @throws FCMPHPException
      */
-    public function setParams(array $params = [])
+    public function setParams($params = array())
     {
         $this->params = $params;
     }
@@ -192,7 +192,7 @@ class FCMPHPRequest
             return $this->getParams();
         }
 
-        return [];
+        return array();
     }
 
     /**

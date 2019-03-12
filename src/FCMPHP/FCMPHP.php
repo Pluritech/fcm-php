@@ -24,7 +24,6 @@
 namespace FCMPHP;
 
 use FCMPHP\Exceptions\FCMPHPException;
-use FCMPHP\Exceptions\FCMPHPResponseException;
 use FCMPHP\HttpClients\HttpClientsFactory;
 
 /**
@@ -51,7 +50,7 @@ class FCMPHP
     protected $client;
 
     /**
-     * @var Project FCM server key.
+     * @var mixed Project FCM server key.
      */
     protected $fcm_server_key;
 
@@ -67,13 +66,13 @@ class FCMPHP
      *
      * @throws FCMPHPException
      */
-    public function __construct(array $config = [])
+    public function __construct($config = array())
     {
-        $config = array_merge([
+        $config = array_merge(array(
              'fcm_server_key'      => getenv(static::FCM_SERVER_KEY)
             ,'fcm_send_message'    => static::FCM_SEND_MESSAGE
             ,'http_client_handler' => null
-        ], $config);
+        ), $config);
 
         if (!$config['fcm_server_key']) {
             throw new FCMPHPException('Required "fcm_server_key" key not supplied in config and could not find fallback environment variable "'. static::FCM_SERVER_KEY . '"');
@@ -89,7 +88,7 @@ class FCMPHP
     /**
      * Returns the FacebookClient service.
      *
-     * @return FacebookClient
+     * @return mixed FacebookClient
      */
     public function getClient()
     {
@@ -138,7 +137,7 @@ class FCMPHP
      *
      * @throws FCMPHPException
      */
-    public function post($endpoint, array $params = [])
+    public function post($endpoint, $params = array())
     {
         return $this->sendRequest(
             'POST',
@@ -158,7 +157,7 @@ class FCMPHP
      *
      * @throws FCMPHPException
      */
-    public function sendRequest($method, $endpoint, array $params = [])
+    public function sendRequest($method, $endpoint, $params = array())
     {
         $request = $this->request($method, $endpoint, $params);
 
@@ -176,7 +175,7 @@ class FCMPHP
      *
      * @throws FCMPHPException
      */
-    public function request($method, $endpoint, array $params = [])
+    public function request($method, $endpoint, array $params = array())
     {
         $request = new FCMPHPRequest(
              $method
@@ -184,9 +183,9 @@ class FCMPHP
             ,$params
         );
 
-        $request->setHeaders([
+        $request->setHeaders(array(
             'Authorization' => 'key=' . $this->getFcmServerKey()
-        ]);
+        ));
 
         return $request;
     }
@@ -194,7 +193,7 @@ class FCMPHP
     /**
      * Returns the server key.
      *
-     * @return fcm_server_key
+     * @return mixed Fcm Server Key
      */
     public function getFcmServerKey()
     {
