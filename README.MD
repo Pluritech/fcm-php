@@ -20,19 +20,19 @@ Simple Send push example.
 ```php
 require_once __DIR__ . '/vendor/autoload.php'; // change path as needed
 
-$FCMPHP = new \FCMPHP\FCMPHP([
+$FCMPHP = new \FCMPHP\FCMPHP(array(
     'fcm_server_key' => '{server-key}'
-]);
+));
 
 $FCMNotification = new \FCMPHP\FCMNotification();
 
 $FCMNotification->setTitle('{push-title}');
 $FCMNotification->setBody('{push-description}');
 $FCMNotification->setPriority('{push-priority}'); //high or normal
-$FCMNotification->setDevices([ 
+$FCMNotification->setDevices(array(
      '{device-id}'
     ,'{device-id}'
-]); //One or more devices
+)); //One or more devices
 
 $request = $FCMPHP->send($FCMNotification);
 
