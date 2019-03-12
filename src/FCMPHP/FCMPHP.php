@@ -171,7 +171,7 @@ class FCMPHP
      * @param string      $endpoint
      * @param array       $params
      *
-     * @return FCMPHPResponse
+     * @return FCMPHPRequest
      *
      * @throws FCMPHPException
      */
@@ -184,7 +184,8 @@ class FCMPHP
         );
 
         $request->setHeaders(array(
-            'Authorization' => 'key=' . $this->getFcmServerKey()
+            'Authorization' => 'key=' . $this->getFcmServerKey(),
+            'Content-Length' => strlen(json_encode($params))
         ));
 
         return $request;
