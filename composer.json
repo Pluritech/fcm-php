@@ -1,7 +1,7 @@
 {
-    "name": "danielprr/fcm-php",
+    "name": "danielprrazevedo/fcm-php",
     "description": "This package fork has pluritech/fcm-php, https://github.com/Pluritech/fcm-php Portable PHP 5.3",
-    "keywords": ["fcm", "php", "pluritech"],
+    "keywords": ["fcm", "php", "pluritech", "danielprrazevedo"],
     "homepage": "https://github.com/danielprrazevedo/fcm-php",
     "type": "library",
     "license": "MIT",
