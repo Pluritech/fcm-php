@@ -172,9 +172,14 @@ class FCMNotification
         }
 
         return array(
-            "registration_ids" => $this->getDevices()
-            ,"priority" => $this->getPriority()
-            ,"data" => $this->getData()
+            "registration_ids" => $this->getDevices(),
+            "priority" => $this->getPriority(),
+            "data" => $this->getData(),
+            "notification" => array(
+                "title" => $this->getTitle(),
+                "body" => $this->getBody(),
+                "sound" => $this->getSound()
+            )
         );
     }
 

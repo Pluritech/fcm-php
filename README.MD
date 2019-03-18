@@ -8,7 +8,7 @@ This repository contains the open source PHP SDK that allows you to access the G
 The Google FCM PHP SDK can be installed with [Composer](https://getcomposer.org/). Run this command:
 
 ```sh
-composer require danielprr/fcm-php
+composer require danielprrazevedo/fcm-php
 ```
 
 ## Usage
