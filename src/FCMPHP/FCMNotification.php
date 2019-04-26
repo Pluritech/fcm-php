@@ -109,6 +109,11 @@ class FCMNotification
      * @var mixed Data non structured
      */
     protected $data;
+    
+    /**
+     * @var string Topic message
+     */
+    protected $topic;
 
     /**
      * Instantiates a notification entity class object.
@@ -136,6 +141,7 @@ class FCMNotification
             'icon' => static::DEFAULT_ICON,
             'priority' => static::DEFAULT_PRIORITY,
             'data' => array(),
+            'topic' => null
         ), $config);
 
         $this->setDevices($config['devices']);
@@ -148,6 +154,7 @@ class FCMNotification
         $this->setPriority($config['priority']);
         $this->setData($config['data']);
         $this->setBadge($config['badge']);
+        $this->setTopic($config['topic']);
     }
     
     /**
@@ -159,8 +166,8 @@ class FCMNotification
      */
     public function formatBody(){
 
-        if (!$this->getDevices()) {
-            throw new \InvalidArgumentException('You need set one or more devices to send notification.');
+        if (!$this->getDevices() && !$this->getTopic()) {
+            throw new \InvalidArgumentException('You must set at least one device or set a topic to send a notification..');
         }
 
         if (!$this->getTitle()) {
@@ -170,9 +177,8 @@ class FCMNotification
         if (!$this->getBody()) {
             throw new \InvalidArgumentException('You need set the notification body FCMNotification.body.');
         }
-
-        return array(
-            "registration_ids" => $this->getDevices(),
+        
+        $notification = array(
             "priority" => $this->getPriority(),
             "data" => $this->getData(),
             "notification" => array(
@@ -181,6 +187,14 @@ class FCMNotification
                 "sound" => $this->getSound()
             )
         );
+        
+        if ($this->getDevices()) {
+            $notification['registration_ids'] = $this->getDevices();
+        } else if ($this->getTopic()) {
+            $notification['to'] = "/topics/{$this->getTopic()}";
+        }
+
+        return $notification;
     }
 
     /**
@@ -191,6 +205,16 @@ class FCMNotification
     public function getDevices()
     {
         return $this->devices;
+    }
+    
+    /**
+     * Returns defined topic
+     * 
+     * @return string Topic
+     */
+    public function getTopic()
+    {
+        return $this->topic;
     }
 
     /**
@@ -360,6 +384,16 @@ class FCMNotification
     public function getData()
     {
         return $this->data;
+    }
+    
+    /**
+     * Define topic message
+     *
+     * @param string $topic
+     */
+    public function setTopic($topic)
+    {
+        $this->topic = $topic;
     }
 
     /**
