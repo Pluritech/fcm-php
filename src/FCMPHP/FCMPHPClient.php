@@ -25,7 +25,7 @@ namespace FCMPHP;
 
 use FCMPHP\HttpClients\HttpClientInterface;
 use FCMPHP\HttpClients\HttpCurlClient;
-use FCMPHP\Exceptions\FCMPushException;
+use FCMPHP\Exceptions\FCMPHPException;
 
 /**
  * Class FCMPHPClient
@@ -117,16 +117,16 @@ class FCMPHPClient
 
         $requestBody = $request->getJsonEncodedBody();
 
-        $request->setHeaders([
+        $request->setHeaders(array(
             'Content-Type' => 'application/json',
-        ]);
+        ));
 
-        return [
+        return array(
             $url,
             $request->getMethod(),
             $request->getHeaders(),
             $requestBody->getBody(),
-        ];
+        );
     }
 
     /**

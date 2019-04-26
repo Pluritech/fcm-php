@@ -40,7 +40,7 @@ interface HttpClientInterface
      *
      * @return \FCMPHP\Http\FCMRawResponse Raw response from the server.
      *
-     * @throws \FCMPHP\Exceptions\FCMPushException
+     * @throws \FCMPHP\Exceptions\FCMPHPException
      */
     public function send($url, $method, $body, array $headers, $timeOut);
 }

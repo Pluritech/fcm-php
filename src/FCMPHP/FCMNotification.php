@@ -67,48 +67,53 @@ class FCMNotification
     protected $devices; //Analisar entidade
 
     /**
-     * @var Notification title
+     * @var mixed Notification title
      */
     protected $title;
 
     /**
-     * @var Notification body
+     * @var mixed Notification body
      */
     protected $body;
 
     /**
-     * @var Content available
+     * @var mixed Content available
      */
     protected $content_available;
 
     /**
-     * @var Sound
+     * @var mixed Sound
      */
     protected $sound; //Analisar entidade
 
     /**
-     * @var Color
+     * @var mixed Color
      */
     protected $color;
     /**
-     * @var badge
+     * @var mixed badge
      */
     protected $badge;
 
     /**
-     * @var Icon
+     * @var mixed Icon
      */
     protected $icon;
 
     /**
-     * @var Priority
+     * @var mixed Priority
      */
     protected $priority;
 
     /**
-     * @var Data non structured
+     * @var mixed Data non structured
      */
     protected $data;
+    
+    /**
+     * @var string Topic message
+     */
+    protected $topic;
 
     /**
      * Instantiates a notification entity class object.
@@ -123,9 +128,9 @@ class FCMNotification
      * @param string $priority
      *
      */
-    public function __construct(array $config = [])
+    public function __construct(array $config = array())
     {
-        $config = array_merge([
+        $config = array_merge(array(
             'devices' => array(),
             'title' => null,
             'body' => null,
@@ -136,7 +141,8 @@ class FCMNotification
             'icon' => static::DEFAULT_ICON,
             'priority' => static::DEFAULT_PRIORITY,
             'data' => array(),
-        ], $config);
+            'topic' => null
+        ), $config);
 
         $this->setDevices($config['devices']);
         $this->setTitle($config['title']);
@@ -148,19 +154,20 @@ class FCMNotification
         $this->setPriority($config['priority']);
         $this->setData($config['data']);
         $this->setBadge($config['badge']);
+        $this->setTopic($config['topic']);
     }
     
     /**
      * Format body
      *
-     * @return Devices
+     * @return mixed Devices
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function formatBody(){
 
-        if (!$this->getDevices()) {
-            throw new \InvalidArgumentException('You need set one or more devices to send notification.');
+        if (!$this->getDevices() && !$this->getTopic()) {
+            throw new \InvalidArgumentException('You must set at least one device or set a topic to send a notification..');
         }
 
         if (!$this->getTitle()) {
@@ -170,22 +177,44 @@ class FCMNotification
         if (!$this->getBody()) {
             throw new \InvalidArgumentException('You need set the notification body FCMNotification.body.');
         }
-
-        return array(
-            "registration_ids" => $this->getDevices()
-            ,"priority" => $this->getPriority()
-            ,"data" => $this->getData()
+        
+        $notification = array(
+            "priority" => $this->getPriority(),
+            "data" => $this->getData(),
+            "notification" => array(
+                "title" => $this->getTitle(),
+                "body" => $this->getBody(),
+                "sound" => $this->getSound()
+            )
         );
+        
+        if ($this->getDevices()) {
+            $notification['registration_ids'] = $this->getDevices();
+        } else if ($this->getTopic()) {
+            $notification['to'] = "/topics/{$this->getTopic()}";
+        }
+
+        return $notification;
     }
 
     /**
      * Returns the devices target.
      *
-     * @return Devices
+     * @return mixed Devices
      */
     public function getDevices()
     {
         return $this->devices;
+    }
+    
+    /**
+     * Returns defined topic
+     * 
+     * @return string Topic
+     */
+    public function getTopic()
+    {
+        return $this->topic;
     }
 
     /**
@@ -203,7 +232,7 @@ class FCMNotification
     /**
      * Returns the notification title.
      *
-     * @return Title
+     * @return mixed Title
      */
     public function getTitle()
     {
@@ -221,7 +250,7 @@ class FCMNotification
     /**
      * Returns the notification body.
      *
-     * @return Body
+     * @return mixed Body
      */
     public function getBody()
     {
@@ -239,7 +268,7 @@ class FCMNotification
     /**
      * Returns the notification content_available.
      *
-     * @return content_available
+     * @return mixed Content available
      */
     public function getContentAvailable()
     {
@@ -257,7 +286,7 @@ class FCMNotification
     /**
      * Returns the notification sound.
      *
-     * @return Sound
+     * @return mixed Sound
      */
     public function getSound()
     {
@@ -275,7 +304,7 @@ class FCMNotification
     /**
      * Returns the notification color.
      *
-     * @return Color
+     * @return mixed Color
      */
     public function getColor()
     {
@@ -293,7 +322,7 @@ class FCMNotification
     /**
      * Returns the notification badge.
      *
-     * @return Color
+     * @return mixed Color
      */
     public function getBadge()
     {
@@ -311,7 +340,7 @@ class FCMNotification
     /**
      * Returns the notification icon.
      *
-     * @return icon
+     * @return mixed icon
      */
     public function getIcon()
     {
@@ -329,7 +358,7 @@ class FCMNotification
     /**
      * Returns the notification priority.
      *
-     * @return priority
+     * @return mixed priority
      */
     public function getPriority()
     {
@@ -350,11 +379,21 @@ class FCMNotification
     /**
      * Returns the notification data.
      *
-     * @return data
+     * @return mixed data
      */
     public function getData()
     {
         return $this->data;
+    }
+    
+    /**
+     * Define topic message
+     *
+     * @param string $topic
+     */
+    public function setTopic($topic)
+    {
+        $this->topic = $topic;
     }
 
     /**

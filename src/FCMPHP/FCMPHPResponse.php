@@ -51,7 +51,7 @@ class FCMPHPResponse
     /**
      * @var array The decoded body of the FCM response.
      */
-    protected $decodedBody = [];
+    protected $decodedBody = array();
 
     /**
      * @var FCMPHPRequest The original request that returned this response.
@@ -71,7 +71,7 @@ class FCMPHPResponse
      * @param int|null        $httpStatusCode
      * @param array|null      $headers
      */
-    public function __construct(FCMPHPRequest $request, $body = null, $httpStatusCode = null, array $headers = [])
+    public function __construct(FCMPHPRequest $request, $body = null, $httpStatusCode = null, $headers = array())
     {
         $this->request = $request;
         $this->body = $body;
@@ -162,7 +162,7 @@ class FCMPHPResponse
     /**
      * Returns the exception that was thrown for this request.
      *
-     * @return FCMPHPResponseÉxception|null
+     * @return FCMPHPResponseException|null
      */
     public function getThrownException()
     {
@@ -180,7 +180,7 @@ class FCMPHPResponse
         $this->decodedBody = json_decode($this->body, true);
 
         if (!is_array($this->decodedBody)) {
-            $this->decodedBody = [];
+            $this->decodedBody = array();
         }
 
         if ($this->isError()) {

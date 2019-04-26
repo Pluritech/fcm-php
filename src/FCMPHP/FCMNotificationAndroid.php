@@ -32,7 +32,7 @@ class FCMNotificationAndroid extends FCMNotification
 {
 
     /**
-     * @var Click action
+     * @var mixed Click action
      */
     protected $click_action;
 
@@ -50,13 +50,13 @@ class FCMNotificationAndroid extends FCMNotification
      * @param string $priority
      *
      */
-    public function __construct(array $config = [])
+    public function __construct(array $config = array())
     {
     	parent::__construct($config);
 
-        $config = array_merge([
+        $config = array_merge(array(
             'click_action' => null,
-        ], $config);
+        ), $config);
 
         $this->setClickAction($config['click_action']);
     }
@@ -64,9 +64,9 @@ class FCMNotificationAndroid extends FCMNotification
     /**
      * Returns the devices target.
      *
-     * @return Devices
+     * @return mixed Devices
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function formatBody(){
 
@@ -89,7 +89,7 @@ class FCMNotificationAndroid extends FCMNotification
     /**
      * Returns the notification clickAction.
      *
-     * @return ClickAction
+     * @return mixed ClickAction
      */
     public function getClickAction()
     {
