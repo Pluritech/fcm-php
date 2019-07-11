@@ -59,17 +59,6 @@ class FCMNotificationIos extends FCMNotification
     public function formatBody(){
 
     	$body = parent::formatBody();
-
-        $body['notification'] = array(
-    		 "title" => $this->getTitle()
-    		,"body" => $this->getBody()
-    		,"sound" => $this->getSound() 
-    		,"color" => $this->getColor()
-            ,"badge" =>$this->getBadge()
-    		,"icon" => $this->getIcon() 
-    		,"content-available" => $this->getContentAvailable() //This "-" is not my fault. Sorry.
-        );
-
        	return $body;
     }
 

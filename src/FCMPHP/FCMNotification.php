@@ -175,6 +175,15 @@ class FCMNotification
             "registration_ids" => $this->getDevices()
             ,"priority" => $this->getPriority()
             ,"data" => $this->getData()
+            ,'notification' => array(
+                "title" => $this->getTitle()
+               ,"body" => $this->getBody()
+               ,"sound" => $this->getSound()
+               ,"color" => $this->getColor()
+               ,"badge" =>$this->getBadge()
+               ,"icon" => $this->getIcon()
+               ,"content-available" => $this->getContentAvailable() //This "-" is not my fault. Sorry.
+           )
         );
     }
 
@@ -369,7 +378,6 @@ class FCMNotification
         if(empty($data)){ //To fix json_encode
            $this->data = (Object) array();
         }
-        //to fix capacitor notification integration that converts 1° level with equal
-        $this->data = array('object' => $data);
+        $this->data = $data;
     }
 }
